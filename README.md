@@ -5,6 +5,8 @@
 
 AI Builders Hackathon 2026 参赛作品。大多数 AI 写作工具是"输入框 + 一次性黑盒输出"，我们做的是**透明、可控、可交互的 Agent 工作流**。
 
+> 另有 Kaggle AI Builder Hackathon 2026 的参赛入口：访问 `/scene`，把自然语言直接编排成可交互的浏览器 3D 场景。详见 [KAGGLE_SUBMISSION.md](./KAGGLE_SUBMISSION.md)。
+
 ## ✨ 它有什么不一样
 
 | 能力 | 说明 |
@@ -26,6 +28,8 @@ npm install
 cp .env.example .env.local   # 填入至少一个 LLM API Key（可选：TAVILY_API_KEY 或 BOCHA_API_KEY）
 npm run dev                  # http://localhost:3000
 ```
+
+Kaggle 场景模式：`http://localhost:3000/scene`
 
 语音输入请使用 Chrome / Edge。没有麦克风也能玩：首屏有示例草稿，一键体验全流程。
 

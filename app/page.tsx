@@ -7,14 +7,10 @@ import {
   draftMessages,
   polishMessages,
   rewriteMessages,
-  suggestMessages,
-  parseSuggestions,
   type PromptOptions,
   type Suggestions,
 } from "@/lib/prompts";
 import {
-  intentMessages,
-  parseIntent,
   LANGS,
   LENGTHS,
   TONES,
@@ -38,6 +34,7 @@ interface ResearchItem {
 type StageStatus = "pending" | "running" | "done" | "error" | "skip";
 type StageKey = "analyze" | "search" | "plan" | "draft" | "polish" | "suggest";
 type Stages = Record<StageKey, StageStatus>;
+type TouchedKey = "type" | "tone" | "length" | "lang";
 
 const STAGE_LABELS: Record<StageKey, string> = {
   analyze: "意图识别",
@@ -119,7 +116,7 @@ export default function Home() {
   const abortRef = useRef<AbortController | null>(null);
   const outputRef = useRef<HTMLTextAreaElement>(null);
   // 用户手动改过的参数，意图识别不再覆盖
-  const touched = useRef<Set<"type" | "tone" | "length" | "lang">>(new Set());
+  const [touchedKeys, setTouchedKeys] = useState<Set<TouchedKey>>(() => new Set());
 
   const opts = useMemo<PromptOptions>(
     () => ({ type, tone, length, lang }),
@@ -160,11 +157,18 @@ export default function Home() {
     setIntent(null);
     setResearch([]);
     setSuggestions(null);
+    setTouchedKeys(new Set());
     setStages(ALL_STAGES_PENDING());
   };
 
-  const markTouched = (key: "type" | "tone" | "length" | "lang") =>
-    touched.current.add(key);
+  const markTouched = (key: TouchedKey) => {
+    setTouchedKeys((prev) => {
+      if (prev.has(key)) return prev;
+      const next = new Set(prev);
+      next.add(key);
+      return next;
+    });
+  };
 
   const setStage = (key: StageKey, status: StageStatus) =>
     setStages((s) => ({ ...s, [key]: status }));
@@ -303,12 +307,12 @@ export default function Home() {
       if (!WRITING_TYPES.includes(it.type)) {
         setCustomTypes((prev) => (prev.includes(it.type) ? prev : [...prev, it.type]));
       }
-      if (!touched.current.has("type")) setType(it.type);
+      if (!touchedKeys.has("type")) setType(it.type);
     }
-    if (!touched.current.has("tone")) setTone(it.tone);
-    if (!touched.current.has("length")) setLength(it.length);
-    if (!touched.current.has("lang")) setLang(it.lang);
-  }, []);
+    if (!touchedKeys.has("tone")) setTone(it.tone);
+    if (!touchedKeys.has("length")) setLength(it.length);
+    if (!touchedKeys.has("lang")) setLang(it.lang);
+  }, [touchedKeys]);
 
   const scroll = () => outputRef.current?.scrollTo(0, outputRef.current.scrollHeight);
 
@@ -706,7 +710,7 @@ export default function Home() {
             <div>
               <label className="mb-1 flex items-center justify-between text-xs font-medium uppercase tracking-wide text-zinc-500">
                 写作类型
-                {intent && !touched.current.has("type") && (
+                {intent && !touchedKeys.has("type") && (
                   <span className="rounded bg-violet-100 px-1.5 text-[10px] normal-case text-violet-600">
                     ✨ AI 识别
                   </span>
