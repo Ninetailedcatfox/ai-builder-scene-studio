@@ -43,7 +43,7 @@ The app is built with Next.js App Router, TypeScript, React and Three.js. API ke
 ## Links
 
 - Demo: https://ai-builder-scene-studio.vercel.app/scene
-- Public source: `REPLACE_WITH_PUBLIC_GITHUB_URL`
+- Public source: https://github.com/Ninetailedcatfox/ai-builder-scene-studio
 - Competition: https://www.kaggle.com/competitions/ai-builder-hackathon-2026
 
 ## What we would build next
