@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       source: scene.source,
       warning: scene.source === "fallback" ? "AI 已响应，但返回格式无法解析，已切换到本地可复现场景。" : undefined,
     });
-  } catch (error) {
+  } catch {
     return Response.json({
       scene: fallbackSceneFromPrompt(prompt),
       source: "fallback",

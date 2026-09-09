@@ -59,8 +59,8 @@ export default function SceneBuilderPage() {
     <main className="min-h-screen bg-[#070b16] text-slate-100">
       <header className="mx-auto flex max-w-7xl items-center justify-between px-5 py-5 lg:px-8">
         <div>
-          <div className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300">AI BUILDER / SCENE MODE</div>
-          <h1 className="mt-2 text-2xl font-semibold tracking-tight">自然语言 → 可交互 3D 场景</h1>
+          <div className="text-xs font-semibold uppercase tracking-[0.28em] text-cyan-300">AI BUILDER / ORACLE SCENE</div>
+          <h1 className="mt-2 text-2xl font-semibold tracking-tight">一句话入境，点击对象观场起卦</h1>
         </div>
         <Link href="/" className="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300 transition hover:border-cyan-300/50 hover:text-white">
           返回写作工作台
@@ -70,13 +70,13 @@ export default function SceneBuilderPage() {
       <div className="mx-auto grid max-w-7xl gap-5 px-5 pb-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:px-8">
         <section className="rounded-3xl border border-white/10 bg-white/[0.04] p-5 shadow-2xl shadow-cyan-950/10">
           <div className="mb-5 flex items-center gap-2 text-xs text-slate-400">
-            <span className="rounded-full bg-cyan-400/15 px-2 py-1 text-cyan-200">01 描述</span>
+            <span className="rounded-full bg-cyan-400/15 px-2 py-1 text-cyan-200">01 起意</span>
             <span>→</span>
-            <span className="rounded-full bg-violet-400/15 px-2 py-1 text-violet-200">02 编排</span>
+            <span className="rounded-full bg-violet-400/15 px-2 py-1 text-violet-200">02 入境</span>
             <span>→</span>
-            <span className="rounded-full bg-amber-400/15 px-2 py-1 text-amber-200">03 预览</span>
+            <span className="rounded-full bg-amber-400/15 px-2 py-1 text-amber-200">03 观场</span>
           </div>
-          <label htmlFor="scene-prompt" className="text-sm font-medium text-slate-200">告诉 Agent 你想构建什么</label>
+          <label htmlFor="scene-prompt" className="text-sm font-medium text-slate-200">告诉 Agent 你想观什么场</label>
           <textarea
             id="scene-prompt"
             value={prompt}
@@ -90,7 +90,7 @@ export default function SceneBuilderPage() {
             disabled={loading}
             className="mt-3 w-full rounded-2xl bg-cyan-300 px-4 py-3 text-sm font-semibold text-slate-950 transition hover:bg-cyan-200 disabled:cursor-wait disabled:opacity-60"
           >
-            {loading ? "编排中…" : "生成 / 重新生成场景"}
+            {loading ? "入境中…" : "生成 / 重新生成卦境"}
           </button>
           <div className="mt-5 space-y-2">
             <div className="text-xs font-semibold uppercase tracking-wider text-slate-500">灵感快捷输入</div>
@@ -106,7 +106,7 @@ export default function SceneBuilderPage() {
             ))}
           </div>
           <div className="mt-5 rounded-2xl border border-white/10 bg-black/20 p-3 text-xs leading-5 text-slate-400">
-            <div className="font-medium text-slate-200">流水线状态</div>
+            <div className="font-medium text-slate-200">卦境流水线</div>
             <div className="mt-2 flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-300" />自然语言解析</div>
             <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-300" />场景图编排</div>
             <div className="flex items-center gap-2"><span className="h-2 w-2 rounded-full bg-emerald-300" />Three.js 浏览器预览</div>
@@ -153,6 +153,9 @@ export default function SceneBuilderPage() {
           <div className="mt-5 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3 text-sm text-slate-400">
             <span className="mr-2 text-cyan-200">●</span>{notice}
             {error && <span className="ml-2 text-amber-200">({error})</span>}
+          </div>
+          <div className="mt-3 rounded-2xl border border-violet-300/10 bg-violet-300/[0.04] px-4 py-3 text-xs leading-5 text-slate-400">
+            下一阶段：点击场景对象，让它结合当前卦境给出创作式观场解读，并支持继续追问。
           </div>
         </section>
       </div>

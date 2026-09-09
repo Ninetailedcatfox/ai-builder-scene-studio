@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "AI 创作工作台",
-  description: "从口述到成稿，也能把自然语言变成可交互的 3D 场景",
+  title: "Prompt-to-World · AI 观场起卦",
+  description: "用自然语言生成可交互的浏览器 3D 卦境，并探索场景对象的 AI 解读。",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
